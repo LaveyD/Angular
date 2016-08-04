@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="framework/angular.js"></script>
+    <link rel="stylesheet" href="./framework/bootstrap-3.0.0/css/bootstrap.min.css"/>
+    <title></title>
+</head>
+<body ng-app="MyModule">
+<div id="simple" ng-controller="myController">
+    <ul class="nav nav-tabs" ng-init="$scope.tabActive = true">
+        <li ng-class="{active: $scope.tabActive == true}"><a href="javascript:;" ng-click="$scope.tabActive=!$scope.tabActive">标签1</a></li>
+        <li ng-class="{active: $scope.tabActive == false}"><a href="javascript:;" ng-click="$scope.tabActive=!$scope.tabActive">标签2</a></li>
+    </ul>
+    <div class="tab-content tab-bordered">
+        <div class="tab-panel" ng-show="$scope.tabActive" >
+            <button class="btn btn-primary" ng-click="getData()">切换语言1</button>
+            <h1>Current Lang: {{language}}</h1>
+        </div>
+        <div class="tab-panel" ng-show="!$scope.tabActive">
+            <button class="btn btn-primary">切换语言2</button>
+        </div>
+    </div>
+</div>
+</body>
+
+<script>
+    var myModule = angular.module("MyModule", []);
+    myModule.controller('myController', ['$scope', '$http',function($scope, $http) {
+        $scope.language = 'Chinese';
+        $scope.getData = function(){
+            if($scope.language == 'Chinese'){
+                $scope.language = 'English';
+            }else{
+                $scope.language = 'Chinese';
+            }
+            /*if use ajax
+            var url = '/api/v1/position';
+
+            $http.get(url).success(function(data){
+                $scope.language = data;
+                console.log($scope.language);
+            }).error(function(){
+                //do something
+            });
+            //for post
+            $http.post(url).success().error();
+            */
+        }
+    }])
+
+</script>
+</html>
